@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Additional
+namespace Utilities
 {
-    public static class Utils
+    public static class MathfExt
     {
         public static bool IsOutOfBounds<T>(this T general, T minBound, T maxBound) 
             where T : IComparable<T>

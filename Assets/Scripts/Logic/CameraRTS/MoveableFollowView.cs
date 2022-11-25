@@ -1,8 +1,10 @@
-using Additional;
 using UnityEngine;
+using Utilities;
+using Utilities.InputSystem;
 
 namespace Logic.CameraRTS
 {
+    [AddComponentMenu("RTS/Camera/Moveable Follow View")]
     public class MoveableFollowView : FollowView
     {
         [Space]
