@@ -6,39 +6,41 @@ using UnityEngine.UI;
 
 namespace Utilities.UI
 {
-    [AddComponentMenu("UI/ActionMenu")]
-    public class ActionMenu : MonoBehaviour
+    [AddComponentMenu("UI/Rounded Action Menu")]
+    public class RoundedActionMenu : MonoBehaviour
     {
         [SerializeField]
-        private float _distanceBetweenItemEdges;
+        private float _distanceFromCenter;
 
-        [SerializeField]
-        private RectTransform _window;
+        [Space]
         [SerializeField]
         private RectTransform _content;
         [SerializeField]
         private RectTransform _template;
 
+        [Space]
         public UnityEvent OnAnyButtonSelected;
 
         private void Start() => UpdateHeight();
 
-        public void SetOptions(Dictionary<Sprite, Action> options)
+        public void SetOptions(List<Option> options)
         {
             int index = 1;
-            _template.gameObject.SetActive(true);
+            _template.gameObject.SetActive(true); // template is an instantiate original, so it should be active
 
+            // change or create buttons
             foreach (var option in options)
             {
-                var child = GetButton(index);
+                var child = GetOrCreateButton(index);
                 child.onClick.RemoveAllListeners();
 
-                child.image.sprite = option.Key;
-                child.onClick.AddListener(() => option.Value?.Invoke());
+                child.image.sprite = option.sprite;
+                child.onClick.AddListener(() => option.action?.Invoke());
                 child.onClick.AddListener(() => OnAnyButtonSelected?.Invoke());
                 index++;
             }
 
+            // remove unnecessary
             if (index < _content.childCount)
                 for (int i = _content.childCount - 1; i >= index; i--)
                 {
@@ -51,7 +53,7 @@ namespace Utilities.UI
             UpdateHeight();
         }
 
-        private Button GetButton(int index)
+        private Button GetOrCreateButton(int index)
         {
             if (_content.childCount > index)
                 return _content.GetChild(index).GetComponent<Button>();
@@ -61,20 +63,27 @@ namespace Utilities.UI
 
         private void UpdateHeight()
         {
-            int realChildCount = _content.childCount - 1;
-            float dbi = _template.sizeDelta.y + _distanceBetweenItemEdges;
-            _window.sizeDelta = new Vector2(_window.sizeDelta.x, dbi * realChildCount);
+            int realChildCount = _content.childCount - 1; // template does not count
+            float deltaAngle = 360f / realChildCount;
 
-            for (int i = 1; i < _content.childCount; i++)
+            for (int i = 0; i < _content.childCount; i++)
             {
-                RectTransform child = (RectTransform)_content.GetChild(i);
-                child.anchoredPosition = new Vector2(0f, dbi * (0.5f - i));
+                var child = (RectTransform)_content.GetChild(i);
+                float angle = (i - 1) * deltaAngle * Mathf.Deg2Rad;
+                child.anchoredPosition = new(_distanceFromCenter * Mathf.Cos(angle), _distanceFromCenter * Mathf.Sin(angle));
             }
+        }
 
-            // dbi - 50, size - 40
-            // 1 - -25  / 50
-            // 2 - -75  / 100
-            // 3 - -125 / 150
+        public class Option
+        {
+            public Sprite sprite;
+            public Action action;
+
+            public Option(Sprite sprite, Action action)
+            {
+                this.sprite = sprite;
+                this.action = action;
+            }
         }
     }
 }

@@ -1,14 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Logic.Construction
 {
     public static class Constructor
     {
-        public static void Build(Plan plan, Site site)
+        public static void Build(BuildPlan plan, BuildSite site)
         {
-            Debug.Log("start building");
+            Object.Instantiate(plan.prefab.gameObject, site.transform.parent);
+            site.availablePlans = plan.availablePlans;
         }
     }
 }

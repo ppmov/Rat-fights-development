@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   icon: {fileID: 21300000, guid: f9161c6c9e06dc445ada3ee16d991f90, type: 3}
-  prefab: {fileID: 8408612543876314237, guid: d528281f3bb37ed4fa1b27e487fe30f5, type: 3}
+  prefab: {fileID: -1997999837798881212, guid: d528281f3bb37ed4fa1b27e487fe30f5, type: 3}
+  availablePlans: []

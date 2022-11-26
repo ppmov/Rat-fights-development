@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace Utilities.InputSystem
 {
+    [AddComponentMenu("Input/Cursor Freezer")]
     public class CursorFreezer : MonoBehaviour
     {
         public Vector2 DragDirection => (_fakeMousePosition - _previousFramePosition).normalized;
