@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace Logic.CameraRTS
 {
+    [AddComponentMenu("RTS/Camera/Follow View")]
     [RequireComponent(typeof(Camera))]
     public class FollowView : MonoBehaviour
     {

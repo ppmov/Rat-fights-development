@@ -1,9 +1,10 @@
 using System.Collections;
-using Additional;
+using Utilities;
 using UnityEngine;
 
 namespace Logic.CameraRTS
 {
+    [AddComponentMenu("RTS/Camera/View Switcher")]
     [RequireComponent(typeof(Camera))]
     public class CameraViewSwitcher : MonoBehaviour
     {
