@@ -11,6 +11,6 @@ namespace Logic.Construction
 
         private void Start() => PutOnGround();
 
-        private void PutOnGround() => transform.localPosition = new(0f, -_mesh.bounds.min.y, 0f);
+        private void PutOnGround() => transform.localPosition = new(0f, _mesh.bounds.center.y - _mesh.bounds.min.y, 0f);
     }
 }
