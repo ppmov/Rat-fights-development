@@ -18,9 +18,6 @@ namespace Utilities.UI
         [SerializeField]
         private RectTransform _template;
 
-        [Space]
-        public UnityEvent OnAnyButtonSelected;
-
         private void Start() => UpdateHeight();
 
         public void SetOptions(List<Option> options)
@@ -36,7 +33,6 @@ namespace Utilities.UI
 
                 child.image.sprite = option.sprite;
                 child.onClick.AddListener(() => option.action?.Invoke());
-                child.onClick.AddListener(() => OnAnyButtonSelected?.Invoke());
                 index++;
             }
 
@@ -45,7 +41,7 @@ namespace Utilities.UI
                 for (int i = _content.childCount - 1; i >= index; i--)
                 {
                     var child = _content.GetChild(i);
-                    child.parent = null;
+                    child.SetParent(null);
                     Destroy(child.gameObject);
                 }
 
@@ -66,7 +62,7 @@ namespace Utilities.UI
             int realChildCount = _content.childCount - 1; // template does not count
             float deltaAngle = 360f / realChildCount;
 
-            for (int i = 0; i < _content.childCount; i++)
+            for (int i = 1; i < _content.childCount; i++)
             {
                 var child = (RectTransform)_content.GetChild(i);
                 float angle = (i - 1) * deltaAngle * Mathf.Deg2Rad;

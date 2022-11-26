@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acb9791fe70e51048a2544b4879a5575, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  availablePlans: []
+  _availablePlans: []
 --- !u!1 &4085448231779658021
 GameObject:
   m_ObjectHideFlags: 0

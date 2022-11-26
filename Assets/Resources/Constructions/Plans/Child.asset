@@ -10,12 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b98a19fc78a5af14f8e4bcea3e102524, type: 3}
-  m_Name: Something
+  m_Name: Child
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: f9161c6c9e06dc445ada3ee16d991f90, type: 3}
+  icon: {fileID: 21300000, guid: 65f0e363b74cf5845ab8c3fbc14f39ac, type: 3}
   prefab: {fileID: 8408612543876314237, guid: d528281f3bb37ed4fa1b27e487fe30f5, type: 3}
   buildDuration: 2
   availablePlans:
-  - {fileID: 11400000, guid: 9121824b903763e48a0a3a5e1dbfaffc, type: 2}
-  - {fileID: 11400000, guid: 9121824b903763e48a0a3a5e1dbfaffc, type: 2}
-  - {fileID: 11400000, guid: 9121824b903763e48a0a3a5e1dbfaffc, type: 2}
+  - {fileID: 0}

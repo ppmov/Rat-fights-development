@@ -1,7 +1,6 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
+using UnityEngine.UI;
 using Utilities.UI;
 
 namespace Logic.Construction
@@ -12,36 +11,74 @@ namespace Logic.Construction
         [SerializeField]
         private RoundedActionMenu _actionMenu;
         [SerializeField]
-        private Sprite _cancelIcon;
+        private Button _cancelButton;
 
-        //[Space]
-        //public UnityEvent onOpened;
-        //public UnityEvent onClosed;
+        private Camera _camera;
+        private RectTransform _rect;
+        private BuildSite _selectedSite;
 
-        // should be called after selecting build site game object
+        private BuildSite Selected
+        {
+            get => _selectedSite;
+            set
+            {
+                gameObject.SetActive(value != null);
+                _selectedSite = value;
+
+                if (!value)
+                {
+                    _actionMenu.SetOptions(new());
+                    _cancelButton.onClick.RemoveAllListeners();
+                }
+            }
+        }
+
+        private void Awake()
+        {
+            _camera = Camera.main;
+            _rect = GetComponent<RectTransform>();
+        }
+
+        private void LateUpdate()
+        {
+            if (Selected == null)
+                return;
+
+            // Selected following
+            _rect.anchoredPosition = _camera.WorldToScreenPoint(Selected.transform.position);
+        }
+
+        // unity event target
         public void Select(GameObject gameObject)
         {
             var site = gameObject.GetComponent<BuildSite>();
+
             if (site != null)
                 Select(site);
         }
 
         public void Select(BuildSite site)
         {
-            if (site.availablePlans.Length == 0)
+            if (!site.CanBeCanceled && site.AvailablePlans.Length == 0)
                 return;
 
+            // cancel build button
+            _cancelButton.onClick.AddListener(() => site.Cancel());
+
+            // setup plan buttons
             List<RoundedActionMenu.Option> options = new();
 
-            foreach (var plan in site.availablePlans)
-                options.Add(new(plan.icon, () => Constructor.Build(plan, site)));
+            foreach (var plan in site.AvailablePlans)
+                options.Add(new(plan.icon, () => site.Build(plan)));
 
-            // add cancel button
-            options.Add(new(_cancelIcon, null));
-            gameObject.SetActive(true);
             _actionMenu.SetOptions(options);
+
+            // enabling
+            _cancelButton.gameObject.SetActive(site.CanBeCanceled);
+            _actionMenu.gameObject.SetActive(options.Count > 0);
+            Selected = site;
         }
 
-        public void Close() => gameObject.SetActive(false);
+        public void Close() => Selected = null;
     }
 }
