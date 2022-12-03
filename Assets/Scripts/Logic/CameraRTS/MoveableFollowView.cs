@@ -82,7 +82,9 @@ namespace Logic.CameraRTS
                 return;
 
             HasToFollow = false;
-            transform.Rotate(0f, 0f, velocity * Time.deltaTime * direction);
+
+            Vector3 center = new(_followed.transform.position.x, _camera.transform.position.y, _followed.transform.position.z);
+            transform.RotateAround(center, Vector3.up, velocity * Time.deltaTime * direction);
         }
 
         private static Vector2 GetInputAxes() => new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")).normalized;

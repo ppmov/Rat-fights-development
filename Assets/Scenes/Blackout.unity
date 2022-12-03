@@ -2357,6 +2357,10 @@ PrefabInstance:
       propertyPath: _followed
       value: 
       objectReference: {fileID: 1699291662}
+    - target: {fileID: 2596706271118363856, guid: c7c8dd4523e5c8f47b706275956de302, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2596706271118363857, guid: c7c8dd4523e5c8f47b706275956de302, type: 3}
       propertyPath: _followed
       value: 
@@ -11628,7 +11632,7 @@ MonoBehaviour:
   _layerMask:
     serializedVersion: 2
     m_Bits: 64
-  OnSelected:
+  onHit:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1739173568}
