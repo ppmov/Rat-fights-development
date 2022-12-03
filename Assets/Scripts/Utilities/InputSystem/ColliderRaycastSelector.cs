@@ -11,7 +11,7 @@ namespace Utilities.InputSystem
         private Camera _camera;
 
         [Space]
-        public UnityEvent<GameObject> OnSelected;
+        public UnityEvent<GameObject> onHit;
 
         private Vector2 MousePosition => Input.mousePosition;
 
@@ -22,7 +22,7 @@ namespace Utilities.InputSystem
         public void SelectObjectAtScreenPosition(Vector3 screenPoint, int layerMask)
         {
             if (Physics.Raycast(_camera.ScreenPointToRay(screenPoint), out RaycastHit hit, Mathf.Infinity, layerMask))
-                OnSelected.Invoke(hit.collider.gameObject);
+                onHit.Invoke(hit.collider.gameObject);
         }
     }
 }
