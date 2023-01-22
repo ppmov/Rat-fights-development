@@ -4,6 +4,7 @@ using UnityEngine;
 namespace Infrastructure
 {
     // First in script execution order
+    [AddComponentMenu("RTS/Infrastructure/Bootstrapper")]
     public class Bootstrapper : MonoBehaviour
     {
         private void Awake()
@@ -11,11 +12,15 @@ namespace Infrastructure
             RegisterServices();
         }
 
+        private void OnEnable()
+        {
+            SL.Single<PlayerInput>().Enable();
+        }
+
         private void RegisterServices()
         {
             // Register HeroFactory, UnitFactory and UnitPool
-            AllServices.RegisterSingle<PlayerInput>(new PlayerInput());
-            // Get input by: AllServices.Single<PlayerInput>().
+            SL.RegisterSingle(new PlayerInput());
         }
     }
 }

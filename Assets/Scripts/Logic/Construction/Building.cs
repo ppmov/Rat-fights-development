@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace Logic.Construction
 {
+    [AddComponentMenu("RTS/Construction/Building")]
     [RequireComponent(typeof(MeshRenderer))]
     public class Building : MonoBehaviour
     {
