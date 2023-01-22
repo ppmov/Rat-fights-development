@@ -1,6 +1,7 @@
 using System.Collections;
 using Utilities;
 using UnityEngine;
+using Infrastructure.Services;
 
 namespace Logic.CameraRTS
 {
@@ -14,6 +15,8 @@ namespace Logic.CameraRTS
         private float _transitionDuration;
 
         private Camera _camera;
+        private PlayerInput _input;
+
         private int _currentViewIndex;
         private Coroutine _transition = null;
 
@@ -21,6 +24,7 @@ namespace Logic.CameraRTS
         {
             _camera = GetComponent<Camera>();
             _views = GetComponents<FollowView>();
+            _input = SL.Single<PlayerInput>();
         }
 
         private void Start()
@@ -43,11 +47,10 @@ namespace Logic.CameraRTS
 
         private void Update()
         {
-            if (Input.mouseScrollDelta.y == -1)
-                TryStartTransition(false);
-            else
-            if (Input.mouseScrollDelta.y == 1)
-                TryStartTransition(true);
+            float scroll = _input.Player.Scroll.ReadValue<Vector2>().y;
+
+            if (scroll != 0)
+                TryStartTransition(scroll > 0);
         }
 
         private void TryStartTransition(bool reversed = false)

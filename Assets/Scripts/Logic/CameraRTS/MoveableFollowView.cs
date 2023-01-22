@@ -1,6 +1,4 @@
 using UnityEngine;
-using Utilities;
-using Utilities.InputSystem;
 
 namespace Logic.CameraRTS
 {
@@ -22,44 +20,33 @@ namespace Logic.CameraRTS
         [SerializeField]
         private Vector2 _outOfWindowOffset;
 
-        private CursorFreezer _freezer;
-
         private bool HasToFollow { get; set; }
-        private float FovFactor => FovBounds.y == 0 ? 1f : _camera.fieldOfView / FovBounds.y;
-        private bool IsCursorFreezed => _freezer != null && (_freezer.enabled = Input.GetKey(KeyCode.Mouse2));
-        private bool IsCursorOffScreen => Input.mousePosition.x.IsOutOfBounds(_outOfWindowOffset.x, Screen.width - _outOfWindowOffset.x) ||
-                                          Input.mousePosition.y.IsOutOfBounds(_outOfWindowOffset.y, Screen.height - _outOfWindowOffset.y);
+        private float FovFactor => FovBounds.y == 0 ? 1f : Camera.fieldOfView / FovBounds.y;
 
         private void Start()
         {
             UpdateFollowing(); // set correct initial transform
-            _freezer = gameObject.AddComponent<CursorFreezer>();
+            Input.Player.CameraBinding.performed += (x) => HasToFollow = !HasToFollow;
         }
 
         private void OnDisable() => HasToFollow = false;
 
-        private void Update()
-        {
-            UpdateScrolling();
-
-            if (Input.GetKeyDown(KeyCode.C))
-                HasToFollow = !HasToFollow;
-        }
+        private void Update() => UpdateScrolling();
 
         private void LateUpdate()
         {
-            Move(GetInputAxes(), _axisMovementVelocity);
+            Move(Input.Player.Move.ReadValue<Vector2>(), _axisMovementVelocity);
 
-            if (IsCursorFreezed)
-                Move(_freezer.DragDirection, _mouseMovementVelocity * (_isWheelMoveInversionEnabled ? -1 : 1));
+            if (Input.IsCursorFreezed(out var dragDirection))
+                Move(dragDirection, _mouseMovementVelocity * (_isWheelMoveInversionEnabled ? -1 : 1));
             else 
-            if (IsCursorOffScreen)
-                Move(GetMouseFromCenterDirection(), _mouseMovementVelocity);
+            if (Input.IsCursorOffScreen(_outOfWindowOffset.x, _outOfWindowOffset.y))
+                Move(Input.GetMouseFromCenterDirection(), _mouseMovementVelocity);
 
-            if (Input.GetKey(KeyCode.R))
+            if (Input.Player.RotateLeft.IsPressed())
                 Rotate(-1f, _rotationVelocity);
             else
-            if (Input.GetKey(KeyCode.T))
+            if (Input.Player.RotateRight.IsPressed())
                 Rotate(1f, _rotationVelocity);
 
             if (HasToFollow)
@@ -83,11 +70,8 @@ namespace Logic.CameraRTS
 
             HasToFollow = false;
 
-            Vector3 center = new(_followed.transform.position.x, _camera.transform.position.y, _followed.transform.position.z);
+            Vector3 center = new(_followed.transform.position.x, Camera.transform.position.y, _followed.transform.position.z);
             transform.RotateAround(center, Vector3.up, velocity * Time.deltaTime * direction);
         }
-
-        private static Vector2 GetInputAxes() => new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")).normalized;
-        private static Vector2 GetMouseFromCenterDirection() => new Vector2(Input.mousePosition.x - Screen.width / 2f, Input.mousePosition.y - Screen.height / 2f).normalized;
     }
 }

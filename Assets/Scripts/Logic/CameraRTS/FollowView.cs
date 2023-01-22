@@ -1,3 +1,4 @@
+using Infrastructure.Services;
 using UnityEngine;
 
 namespace Logic.CameraRTS
@@ -27,9 +28,15 @@ namespace Logic.CameraRTS
         [SerializeField]
         private Vector2 _fieldOfViewBounds;
 
-        protected Camera _camera;
+        protected Camera Camera { get; private set; }
+        protected PlayerInput Input { get; private set; }
 
-        protected virtual void Awake() => _camera = GetComponent<Camera>();
+        protected virtual void Awake()
+        {
+            Camera = GetComponent<Camera>();
+            Input = SL.Single<PlayerInput>();
+        }
+
         private void Start() => UpdateFollowing(); // set correct initial transform
         private void Update() => UpdateScrolling();
         private void LateUpdate() => UpdateFollowing();
@@ -58,9 +65,9 @@ namespace Logic.CameraRTS
             transform.SetPositionAndRotation(position, rotation);
         }
 
-        protected void UpdateScrolling() => Zoom(Input.mouseScrollDelta.y, _scrollingVelocity);
+        protected void UpdateScrolling() => Zoom(Input.Player.Scroll.ReadValue<Vector2>().y, _scrollingVelocity);
 
         private void Zoom(float direction, float velocity) => 
-            _camera.fieldOfView = Mathf.Clamp(_camera.fieldOfView - velocity * Time.deltaTime * Mathf.Clamp(direction, -1f, 1f), FovBounds.x, FovBounds.y);
+            Camera.fieldOfView = Mathf.Clamp(Camera.fieldOfView - velocity * Time.deltaTime * Mathf.Clamp(direction, -1f, 1f), FovBounds.x, FovBounds.y);
     }
 }

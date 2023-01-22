@@ -1,5 +1,5 @@
 {
-    "name": "PlayerInput",
+    "name": "InputRTS",
     "maps": [
         {
             "name": "Player",
@@ -24,9 +24,54 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Middle Click",
+                    "type": "Button",
+                    "id": "1e4abc2d-e822-432e-8559-2a4fd50760e0",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Move",
                     "type": "Value",
                     "id": "a01c1cc1-734d-4815-b47a-c67ec6a99190",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Rotate Left",
+                    "type": "Button",
+                    "id": "37c41bbc-f68b-4d75-8145-0c2d547131e9",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Rotate Right",
+                    "type": "Button",
+                    "id": "59b63315-825e-4e17-a06c-80e822fe3b4c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Camera Binding",
+                    "type": "Button",
+                    "id": "d83f4aee-b4c3-4270-9ca9-b6261cd6dbaa",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Scroll",
+                    "type": "Value",
+                    "id": "cf7f60e2-b0e2-4145-8533-60942ec7e78b",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
@@ -81,7 +126,7 @@
                 {
                     "name": "down",
                     "id": "031921a7-3591-46ab-b25a-25bed6ca53a9",
-                    "path": "<Keyboard>/d",
+                    "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
                     "groups": "Mouse and Keyboard",
@@ -110,6 +155,61 @@
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "f826a0a8-87b3-4917-995d-cabd195c28b8",
+                    "path": "<Mouse>/middleButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse and Keyboard",
+                    "action": "Middle Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "66171a5b-7959-436a-9add-03a756478325",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse and Keyboard",
+                    "action": "Rotate Left",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "288fe020-1590-44bd-86c0-bda1b7a92241",
+                    "path": "<Keyboard>/t",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse and Keyboard",
+                    "action": "Rotate Right",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "afd99bef-d589-4af5-b70f-ad53ab20a18c",
+                    "path": "<Keyboard>/c",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse and Keyboard",
+                    "action": "Camera Binding",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "53d18b43-9326-4a95-accc-e34747d200d8",
+                    "path": "<Mouse>/scroll",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse and Keyboard",
+                    "action": "Scroll",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
