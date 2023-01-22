@@ -2658,6 +2658,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 127670479}
+  - component: {fileID: 127670480}
   m_Layer: 0
   m_Name: Squad Controller
   m_TagString: Untagged
@@ -2680,6 +2681,20 @@ Transform:
   m_Father: {fileID: 2030324037}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &127670480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 127670478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bfd1b1dd32e6d949aabffbcd0119cce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agents:
+  - {fileID: 1015317100}
 --- !u!1 &128598222
 GameObject:
   m_ObjectHideFlags: 0
@@ -17866,6 +17881,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 159411560995718047, guid: 935ffe72b5eaf804bbee7d5fd59d0ec5, type: 3}
   m_PrefabInstance: {fileID: 2062459880}
   m_PrefabAsset: {fileID: 0}
+--- !u!195 &1015317100 stripped
+NavMeshAgent:
+  m_CorrespondingSourceObject: {fileID: 6183492146605246849, guid: 935ffe72b5eaf804bbee7d5fd59d0ec5, type: 3}
+  m_PrefabInstance: {fileID: 2062459880}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1026183749
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27074,7 +27094,7 @@ MonoBehaviour:
   hitEventPoint:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 127670480}
         m_TargetAssemblyTypeName: Logic.Unit.SquadController, Assembly-CSharp
         m_MethodName: OnGroundClick
         m_Mode: 0
